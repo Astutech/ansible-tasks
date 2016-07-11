@@ -1,0 +1,11 @@
+---
+- name: Set up a standard Laravel install
+  hosts: ubuntu
+  become: True
+  strategy: debug
+
+  roles:
+    - postgres
+    - nginx-php
+    - nginx_firewall
+    - redis

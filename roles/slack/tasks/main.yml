@@ -1,0 +1,7 @@
+- name: Send notification message via Slack
+  local_action:
+    module: slack
+    token: "xoxp-3249055100-3249055104-18707890594-db4d49be53"
+    msg: "Wordpress setup completed"
+    channel: "#ansible"
+    domain: astutech.slack.com

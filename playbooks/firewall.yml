@@ -1,0 +1,7 @@
+---
+- name: Set up a standard Laravel install
+  hosts: ubuntu
+  become: True
+
+  roles:
+    - firewall

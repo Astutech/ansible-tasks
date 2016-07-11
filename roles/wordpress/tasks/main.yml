@@ -1,0 +1,36 @@
+---
+- name: download wp-cli
+  sudo: yes
+  get_url: url=https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar dest=/usr/local/bin/wp
+
+- name: Allow executing of wp-cli
+  file: path=/usr/local/bin/wp mode="0755"
+
+- name: Add group "wordpress"
+  group: name=wordpress state=present
+
+- name: Add user "wordpress", belonging to group "wordpress" and having a home dir of /srv/wordpress
+  user: name=wordpress group=wordpress home=/var/www/ state=present
+
+- name: Give ownership of /var/www/ to the wordpress user
+  file: name=/var/www/ group=wordpress owner=wordpress
+
+- name: Download wordpress into /var/www/ using wp[-cli] command as the wordpress user
+  sudo: yes
+  sudo_user: wordpress
+  command: wp core download --path=/var/www/
+
+- name: Setup wordpress config
+  sudo: yes
+  sudo_user: wordpress
+  command: wp core config --dbname=wordpress --dbuser=blah --dbpass=blah --path=/var/www
+
+- name: Setup wordpress database (with username = , password =)
+  sudo: yes
+  sudo_user: wordpress
+  command: wp core install --url=http://localhost/ --title=Wordpress --admin_user=declan.marks --admin_password=deco2208 --admin_email=decomarks2208@googlemail.com --path=/var/www
+
+- name: install w3-total-cache password
+  sudo: yes
+  sudo_user: wordpress
+  command: wp plugin --path=/var/www install w3-total-cache

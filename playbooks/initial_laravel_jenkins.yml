@@ -1,0 +1,55 @@
+---
+- name: setup laravel
+  become: True
+  hosts: ubuntu
+
+  tasks:
+    - name: Create the SSH public key file
+      copy: src=../files/id_rsa.pub dest=/root/.ssh/id_rsa.pub mode=0644 force=no
+
+    - name: Create the SSH private key file
+      copy: src=../files/id_rsa dest=/root/.ssh/id_rsa mode=0600 force=no
+
+    - name: change folder owner
+      file:
+        dest: /var/www
+        state: directory
+        owner: declanmarks
+        group: declanmarks
+        recurse: yes
+
+    - name: clone repository
+      git: repo=git@bitbucket.org:matthew_astutech/anygo-rewrite.git dest=/var/www accept_hostkey=yes
+
+    - name: setup
+      command: "{{ item }} chdir=/var/www"
+      with_items:
+        - composer install
+        - php artisan key:generate
+        - php artisan migrate
+        - php artisan cache:clear
+        - php artisan view:clear
+        - composer dump-autoload
+        - php artisan config:cache
+        - php artisan route:cache
+        - php artisan optimize
+
+    - name: change folder owner
+      file:
+        dest: /var/www
+        state: directory
+        owner: www-data
+        group: www-data
+        recurse: yes
+
+    - name: laraven env setup
+      lineinfile: dest=/etc/php/7.0/fpm/pool.d/www.conf regexp='^{{ item.regex }}' line='{{ item.line }}'
+      with_items:
+        - { regex: DB_CONNECTION=, line: env[DB_CONNECTION] = pgsql }
+        - { regex: DB_HOST=, line: env[DB_HOST] = localhost }
+        - { regex: DB_DATABASE=, line: env[DB_DATABASE] = anygo }
+        - { regex: DB_USERNAME=, line: env[DB_USERNAME] = anygouser }
+        - { regex: DB_PASSWORD=, line: env[DB_PASSWORD] = password }
+        - { regex: CACHE_DRIVER=, line: env[CACHE_DRIVER] = redis }
+        - { regex: SESSION_DRIVER=, line: env[SESSION_DRIVER] = redis }
+        - { regex: QUEUE_DRIVER=, line: env[QUEUE_DRIVER] = sync }

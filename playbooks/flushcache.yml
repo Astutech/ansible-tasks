@@ -1,0 +1,9 @@
+---
+- name: Flush cache
+  hosts: gerrys
+  become: True
+  tasks:
+    - name: Flush memcached
+      service: name=memcached state=restarted
+    - name: Flush Varnish
+      service: name=varnish state=restarted

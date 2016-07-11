@@ -1,0 +1,13 @@
+---
+- name: install mysql
+  apt: name={{ item }} state=present
+  with_items:
+  - mysql-server
+  - php5-mysql
+  - php5-sqlite
+  - python-mysqldb
+
+- mysql_db: name=wordpress state=present
+- mysql_user: name=blah password=blah priv=wordpress.*:ALL state=present
+
+- service: name=mysql state=restarted

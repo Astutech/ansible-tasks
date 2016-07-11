@@ -1,0 +1,9 @@
+---
+- name: Send slack notification
+  local_action:
+      module: slack
+      token: "{{ lookup('env','SLACK_TOKEN') }}"
+      msg: "{{ inventory_hostname }} completed"
+      channel: ansible
+      username: "Ansible on {{ inventory_hostname }}"
+      parse: none

@@ -1,0 +1,13 @@
+---
+ssh_users:
+  - declanmarks
+  - admin
+  - matthew
+  - danguest
+  - dantink
+  - john
+  - robert
+  - luke
+  - ingrid
+
+ssh_port: 22

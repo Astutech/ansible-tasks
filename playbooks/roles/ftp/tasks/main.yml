@@ -1,0 +1,26 @@
+---
+- name: install vsftpd
+  apt: name={{ item }} state=present cache_valid_time=3600 update_cache=yes
+  with_items:
+    - vsftpd
+
+- name: Create configuration
+  template: src={{ item }}.j2 dest=/etc/{{ item }}
+  with_items:
+    - vsftpd.conf
+    - shells
+
+- name: Reload Systemctl
+  command: systemctl daemon-reload
+
+- name: Restart Apache
+  service: name=vsftpd state=restarted
+
+- name: add ftp users
+  user:
+    name: deploy
+    shell: /usr/sbin/nologin
+    state: present
+    home: /var/www
+    group: "www-data"
+    password: $6$wZEAgxysHAuak5L$XUPPsGePoCwpF/5oESAb8pkW7ayBZpnZOF8wD1f6qynW7R4JsPy6O9ebnShwmZDI5PbXQKVzpZn5k6rAmisrs0

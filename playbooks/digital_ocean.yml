@@ -1,0 +1,35 @@
+---
+- name: setup ditigal ocean
+  hosts: digitalocean
+
+  vars:
+     token: "{{ lookup('env','DO_TOKEN') }}"
+
+  tasks:
+  - name: ensure ssh key exists
+    digital_ocean: >
+      state=present
+      command=ssh
+      name=my_ssh_key
+      ssh_pub_key={{ lookup('file', '~/.ssh/id_rsa.pub') }}
+      api_token={{ token }}
+    register: my_ssh_key
+
+  - name: create droplet
+    digital_ocean: >
+      state=present
+      command=droplet
+      name=anygo
+      size_id=512mb
+      region_id=lon1
+      image_id=debian-8-x64
+      ssh_key_ids={{ [1234567, 7654321] }}
+      api_token={{ token }}
+      unique_name=yes
+    register: anygo
+
+  - name: Add new host to our inventory.
+    add_host:
+      name: "{{ do.droplet.ip_address }}"
+      groups: do
+    when: do.droplet is defined

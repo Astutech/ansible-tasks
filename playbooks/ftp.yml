@@ -1,0 +1,7 @@
+---
+- name: Install FTP
+  hosts: ubuntu
+  become: True
+
+  roles:
+    - ftp

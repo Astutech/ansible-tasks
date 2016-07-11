@@ -1,0 +1,15 @@
+---
+- name: setup laravel
+  become: True
+
+  tasks:
+    - command: "{{ item }}"
+      with_items:
+        - cd /var/www
+        - chown -R matthew:matthew .
+        - git pull origin master
+        - php artisan migrate
+        - php artisan cache:clear
+        - php artisan view:clear
+        - composer dump-autoload
+        - chown -R www-data:www-data .

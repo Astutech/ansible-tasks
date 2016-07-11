@@ -1,0 +1,36 @@
+---
+- name: setup laravel
+  become: True
+
+  tasks:
+    - name: change folder owner
+      file:
+        dest: /var/www
+        state: directory
+        owner: declanmarks
+        group: declanmarks
+        recurse: yes
+
+    - name: clone repository
+      git:
+        repo: git@bitbucket.org:matthew_astutech/anygo-rewrite.git
+        dest: /var/www
+
+    - command: "{{ item }}"
+      with_items:
+        - composer install
+        - php artisan migrate
+        - php artisan cache:clear
+        - php artisan view:clear
+        - composer dump-autoload
+        - php artisan config:cache
+        - php artisan route:cache
+        - php artisan optimize
+
+    - name: change folder owner
+      file:
+        dest: /var/www
+        state: directory
+        owner: www-data
+        group: www-data
+        recurse: yes

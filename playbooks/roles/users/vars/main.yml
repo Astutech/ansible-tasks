@@ -1,0 +1,26 @@
+---
+users:
+  matthew:
+    password: $6$rounds=656000$Bn7Kym9tRAUOa1a3$4T8nNuoRC1dpEHNfnZD0I.D7VamkGhKH.b0DVmM.QnQ3cr1YjlZ2yDjalleVYTpAngChbNEhnoRsva21FV6jK0
+    groups: sudo
+  luke:
+    password: $6$rounds=656000$Bn7Kym9tRAUOa1a3$4T8nNuoRC1dpEHNfnZD0I.D7VamkGhKH.b0DVmM.QnQ3cr1YjlZ2yDjalleVYTpAngChbNEhnoRsva21FV6jK0
+    groups: ""
+  danguest:
+    password: $6$rounds=656000$Bn7Kym9tRAUOa1a3$4T8nNuoRC1dpEHNfnZD0I.D7VamkGhKH.b0DVmM.QnQ3cr1YjlZ2yDjalleVYTpAngChbNEhnoRsva21FV6jK0
+    groups: ""
+  dantink:
+    password: $6$rounds=656000$Bn7Kym9tRAUOa1a3$4T8nNuoRC1dpEHNfnZD0I.D7VamkGhKH.b0DVmM.QnQ3cr1YjlZ2yDjalleVYTpAngChbNEhnoRsva21FV6jK0
+    groups: ""
+  john:
+    password: $6$rounds=656000$Bn7Kym9tRAUOa1a3$4T8nNuoRC1dpEHNfnZD0I.D7VamkGhKH.b0DVmM.QnQ3cr1YjlZ2yDjalleVYTpAngChbNEhnoRsva21FV6jK0
+    groups: ""
+  robert:
+    password: $6$rounds=656000$Bn7Kym9tRAUOa1a3$4T8nNuoRC1dpEHNfnZD0I.D7VamkGhKH.b0DVmM.QnQ3cr1YjlZ2yDjalleVYTpAngChbNEhnoRsva21FV6jK0
+    groups: ""
+  ingrid:
+    password: $6$rounds=656000$Bn7Kym9tRAUOa1a3$4T8nNuoRC1dpEHNfnZD0I.D7VamkGhKH.b0DVmM.QnQ3cr1YjlZ2yDjalleVYTpAngChbNEhnoRsva21FV6jK0
+    groups: ""
+  deploy:
+    password: 
+    groups: "sudo"

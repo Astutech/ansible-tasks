@@ -1,0 +1,7 @@
+---
+- name: Set up required user accounts on servers
+  hosts: declanmarks
+  become: True
+
+  roles:
+    - users

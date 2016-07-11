@@ -1,0 +1,15 @@
+---
+- name: Add Matthew
+  user: name=matthew shell=/bin/bash groups=sudo append=yes state=present password=64MJOwfbXkaVU
+- name: Add Luke
+  user: name=luke shell=/bin/bash groups=sudo append=yes state=present password=gAJGFpv7RqtX
+- name: Add Dan Guest
+  user: name=danguest shell=/bin/bash groups=sudo append=yes state=present password=gAJGFpv7RqtX
+- name: Add Dan Tink
+  user: name=dantink shell=/bin/bash groups=sudo append=yes state=present password=gAJGFpv7RqtX
+- name: Add John
+  user: name=john shell=/bin/bash groups=sudo append=yes state=present password=gAJGFpv7RqtX
+- name: Add Robert
+  user: name=robert shell=/bin/bash groups=sudo append=yes state=present password=gAJGFpv7RqtX
+- name: Add Ingrid
+  user: name=ingrid shell=/bin/bash groups=sudo append=yes state=present password=gAJGFpv7RqtX

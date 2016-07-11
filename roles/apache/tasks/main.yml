@@ -1,0 +1,32 @@
+---
+- name: install LAMP stack
+  apt: name={{ item }} state=present
+  with_items:
+  - apache2
+  - php5
+  - php5-cli
+  - php5-mcrypt
+  - php5-gd
+  - libssh2-php
+  - php5-sqlite
+  - php5-curl
+  - php5-dev
+  - php-pear
+  - php5-memcache
+  - php5-memcached
+  - libssh2-php
+  - php5-tidy
+  - libapache2-mod-rpaf
+
+- name: enabled mod_expires
+  apache2_module: name=expires state=present
+- name: enabled mod_headers
+  apache2_module: name=headers state=present
+- name: enabled mod_rewrite
+  apache2_module: name=rewrite state=present
+- name: a2ensite 000-default
+  command: a2ensite 000-default
+- name: Copy over Apache configuration
+  copy: src=../files/default dest=/etc/apache2/sites-available/000-default.conf owner=root group=root mode=0644
+- name: Restart Apache
+  service: name=apache2 state=restarted

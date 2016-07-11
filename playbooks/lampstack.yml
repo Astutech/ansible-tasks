@@ -1,0 +1,12 @@
+---
+- name: Set up a full LAMP stack on the server
+  hosts: demo
+  become: True
+
+  roles:
+    - upgrade
+    - utilities
+    - apache
+    - firewall
+    - mysql
+    - postgres

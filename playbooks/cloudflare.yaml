@@ -1,0 +1,15 @@
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - cloudflare
+  tasks:
+    - name: Create DNS record www.example.com
+      cloudflare_domain: >
+        state=present
+        name=www
+        zone=example.com
+        type=A
+        content=127.0.0.1
+        email=joe@example.com
+        token=77a54a4c36858cfc10321fcfce22378e19e20

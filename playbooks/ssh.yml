@@ -1,0 +1,7 @@
+---
+- name: Setup ssh on server
+  hosts: declanmarks
+  become: True
+
+  roles:
+    - ssh
